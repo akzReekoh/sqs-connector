@@ -6,7 +6,7 @@
     "help": "Please provide your AWS Access Key ID."
   },
   "secret_access_key":{
-    "label": "Secret Access Key",
+    "label": "Password",
     "type": "String",
     "required": true,
     "help": "Please provide your AWS Secret Access Key."
