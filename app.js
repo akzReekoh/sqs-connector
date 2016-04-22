@@ -6,7 +6,7 @@ var platform = require('./platform'),
     async = require('async'),
 	sqs, queueUrl;
 
-let sendData = (data) => {
+let sendData = (data, callback) => {
     var params = {
         MessageBody : JSON.stringify(data),
         QueueUrl : queueUrl,
@@ -19,26 +19,34 @@ let sendData = (data) => {
     };
 
     sqs.sendMessage(params, function(error, response){
-        if(error){
-            console.error(error);
-            platform.handleException(error);
-        }
-        else{
+        if(!error){
             platform.log(JSON.stringify({
                 title: 'AWS SQS message saved.',
                 data: data
             }));
         }
+
+        callback(error);
     });
 };
 
 platform.on('data', function (data) {
-	if(isPlainObject(data)){
-        sendData(data);
+    if(isPlainObject(data)){
+        sendData(data, (error) => {
+            if(error) {
+                console.error(error);
+                platform.handleException(error);
+            }
+        });
     }
     else if(isArray(data)){
-        async.each(data, (datum) => {
-            sendData(datum);
+        async.each(data, (datum, done) => {
+            sendData(datum, done);
+        }, (error) => {
+            if(error) {
+                console.error(error);
+                platform.handleException(error);
+            }
         });
     }
     else
