@@ -1,11 +1,12 @@
 {
-  "access_key_id":{
+  "accessKeyId":{
     "label": "Access Key ID",
     "type": "String",
     "required": true,
-    "help": "Please provide your AWS Access Key ID."
+    "help": "Please provide your AWS Access Key ID.",
+    "maxLength": 100
   },
-  "secret_access_key":{
+  "secretAccessKey":{
     "label": "Secret Access Key",
     "type": "String",
     "required": true,
@@ -15,18 +16,21 @@
     "label": "Region",
     "type": "String",
     "required": true,
-    "help": "Please provide your AWS Region."
+    "help": "Please provide your AWS Region.",
+    "maxLength": 20
   },
-  "api_version":{
+  "apiVersion":{
     "label": "API Version",
     "type": "String",
     "required": true,
-    "help": "Please provide your AWS API Version."
+    "help": "Please provide your AWS API Version.",
+    "maxLength": 20
   },
-  "queue_url":{
+  "queueUrl":{
     "label": "Queue URL",
     "type": "String",
     "required": true,
-    "help": "Please provide your AWS SQS Queue URL."
+    "help": "Please provide your AWS SQS Queue URL.",
+    "maxLength": 200
   }
 }
